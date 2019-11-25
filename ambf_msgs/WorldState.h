@@ -40,14 +40,15 @@ namespace ambf_msgs
     {
       int offset = 0;
       offset += this->header.serialize(outbuffer + offset);
-      *(outbuffer + offset + 0) = (this->dynamic_loop_freq >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (this->dynamic_loop_freq >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (this->dynamic_loop_freq >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (this->dynamic_loop_freq >> (8 * 3)) & 0xFF;
-      *(outbuffer + offset + 4) = (this->dynamic_loop_freq >> (8 * 4)) & 0xFF;
-      *(outbuffer + offset + 5) = (this->dynamic_loop_freq >> (8 * 5)) & 0xFF;
-      *(outbuffer + offset + 6) = (this->dynamic_loop_freq >> (8 * 6)) & 0xFF;
-      *(outbuffer + offset + 7) = (this->dynamic_loop_freq >> (8 * 7)) & 0xFF;
+      union {
+        uint64_t real;
+        uint32_t base;
+      } u_dynamic_loop_freq;
+      u_dynamic_loop_freq.real = this->dynamic_loop_freq;
+      *(outbuffer + offset + 0) = (u_dynamic_loop_freq.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_dynamic_loop_freq.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_dynamic_loop_freq.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_dynamic_loop_freq.base >> (8 * 3)) & 0xFF;
       offset += sizeof(this->dynamic_loop_freq);
       *(outbuffer + offset + 0) = (this->n_devices >> (8 * 0)) & 0xFF;
       offset += sizeof(this->n_devices);
@@ -83,14 +84,16 @@ namespace ambf_msgs
     {
       int offset = 0;
       offset += this->header.deserialize(inbuffer + offset);
-      this->dynamic_loop_freq =  ((uint64_t) (*(inbuffer + offset)));
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 4))) << (8 * 4);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 5))) << (8 * 5);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 6))) << (8 * 6);
-      this->dynamic_loop_freq |= ((uint64_t) (*(inbuffer + offset + 7))) << (8 * 7);
+      union {
+        uint64_t real;
+        uint32_t base;
+      } u_dynamic_loop_freq;
+      u_dynamic_loop_freq.base = 0;
+      u_dynamic_loop_freq.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_dynamic_loop_freq.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_dynamic_loop_freq.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_dynamic_loop_freq.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->dynamic_loop_freq = u_dynamic_loop_freq.real;
       offset += sizeof(this->dynamic_loop_freq);
       this->n_devices =  ((uint8_t) (*(inbuffer + offset)));
       offset += sizeof(this->n_devices);
