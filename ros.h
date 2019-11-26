@@ -36,14 +36,11 @@
 #define _ROS_H_
 
 #include "ros/node_handle.h"
-
-#ifdef _ROS_MBED_
 #include "MbedHardware.h"
 
 namespace ros
 {
-typedef NodeHandle_<MbedHardware> NodeHandle;
+  typedef NodeHandle_<MbedHardware> NodeHandle;
 }
-#endif
 
 #endif
