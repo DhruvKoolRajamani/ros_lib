@@ -37,13 +37,11 @@
 
 #include "ros/node_handle.h"
 
-#ifdef DPIO_FRAMEWORK_MBED_RTOS_PRESENT
 #include "MbedHardware.h"
 
 namespace ros
 {
 typedef NodeHandle_<MbedHardware> NodeHandle;
 }
-#endif
 
 #endif
