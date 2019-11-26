@@ -1,4 +1,4 @@
-/*
+/* 
  * Software License Agreement (BSD License)
  *
  * Copyright (c) 2011, Willow Garage, Inc.
@@ -37,11 +37,13 @@
 
 #include "ros/node_handle.h"
 
+#ifdef _ROS_MBED_
 #include "MbedHardware.h"
 
 namespace ros
 {
 typedef NodeHandle_<MbedHardware> NodeHandle;
 }
+#endif
 
 #endif
