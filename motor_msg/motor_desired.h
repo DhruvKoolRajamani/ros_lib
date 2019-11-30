@@ -19,13 +19,13 @@ namespace motor_msg
       _header_type header;
       typedef std_msgs::UInt8 _motor_id_type;
       _motor_id_type motor_id;
-      typedef std_msgs::Float32 _measured_force_type;
-      _measured_force_type measured_force;
+      typedef std_msgs::Float32 _desired_force_type;
+      _desired_force_type desired_force;
 
     motor_desired():
       header(),
       motor_id(),
-      measured_force()
+      desired_force()
     {
     }
 
@@ -34,7 +34,7 @@ namespace motor_msg
       int offset = 0;
       offset += this->header.serialize(outbuffer + offset);
       offset += this->motor_id.serialize(outbuffer + offset);
-      offset += this->measured_force.serialize(outbuffer + offset);
+      offset += this->desired_force.serialize(outbuffer + offset);
       return offset;
     }
 
@@ -43,12 +43,12 @@ namespace motor_msg
       int offset = 0;
       offset += this->header.deserialize(inbuffer + offset);
       offset += this->motor_id.deserialize(inbuffer + offset);
-      offset += this->measured_force.deserialize(inbuffer + offset);
+      offset += this->desired_force.deserialize(inbuffer + offset);
      return offset;
     }
 
     const char * getType(){ return "motor_msg/motor_desired"; };
-    const char * getMD5(){ return "01823730f3e4576034981b3cc9bfd1e3"; };
+    const char * getMD5(){ return "4196c45e4380a21a2c2425281c00e18f"; };
 
   };
 
