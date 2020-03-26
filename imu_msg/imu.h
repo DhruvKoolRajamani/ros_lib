@@ -23,19 +23,13 @@ namespace imu_msg
       std_msgs::Int16 control_regs[3];
       typedef std_msgs::Bool _status_type;
       _status_type status;
-      typedef std_msgs::Int16 _checksum_type;
-      _checksum_type checksum;
-      typedef std_msgs::Float64 _temperature_type;
-      _temperature_type temperature;
 
     imu():
       time(),
       accelerometer(),
       gyroscope(),
       control_regs(),
-      status(),
-      checksum(),
-      temperature()
+      status()
     {
     }
 
@@ -53,8 +47,6 @@ namespace imu_msg
       offset += this->control_regs[i].serialize(outbuffer + offset);
       }
       offset += this->status.serialize(outbuffer + offset);
-      offset += this->checksum.serialize(outbuffer + offset);
-      offset += this->temperature.serialize(outbuffer + offset);
       return offset;
     }
 
@@ -72,13 +64,11 @@ namespace imu_msg
       offset += this->control_regs[i].deserialize(inbuffer + offset);
       }
       offset += this->status.deserialize(inbuffer + offset);
-      offset += this->checksum.deserialize(inbuffer + offset);
-      offset += this->temperature.deserialize(inbuffer + offset);
      return offset;
     }
 
     const char * getType(){ return "imu_msg/imu"; };
-    const char * getMD5(){ return "2b5c8fe04daacafb6a6d6f2e07557a19"; };
+    const char * getMD5(){ return "7f0d8ed48d62f4f2f395c20714ea09be"; };
 
   };
 
