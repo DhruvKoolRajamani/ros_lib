@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "ros/msg.h"
 #include "std_msgs/Time.h"
-#include "std_msgs/Float64.h"
+#include "std_msgs/Float32.h"
 #include "std_msgs/Int16.h"
 #include "std_msgs/Bool.h"
 
@@ -18,8 +18,8 @@ namespace imu_msg
     public:
       typedef std_msgs::Time _time_type;
       _time_type time;
-      std_msgs::Float64 accelerometer[3];
-      std_msgs::Float64 gyroscope[3];
+      std_msgs::Float32 accelerometer[3];
+      std_msgs::Float32 gyroscope[3];
       std_msgs::Int16 control_regs[3];
       typedef std_msgs::Bool _status_type;
       _status_type status;
