@@ -12,7 +12,7 @@ namespace motor_msg
   class cmd_light : public ros::Msg
   {
     public:
-      typedef int8_t _cmd_type;
+      typedef int16_t _cmd_type;
       _cmd_type cmd;
 
     cmd_light():
@@ -24,11 +24,12 @@ namespace motor_msg
     {
       int offset = 0;
       union {
-        int8_t real;
-        uint8_t base;
+        int16_t real;
+        uint16_t base;
       } u_cmd;
       u_cmd.real = this->cmd;
       *(outbuffer + offset + 0) = (u_cmd.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_cmd.base >> (8 * 1)) & 0xFF;
       offset += sizeof(this->cmd);
       return offset;
     }
@@ -37,18 +38,19 @@ namespace motor_msg
     {
       int offset = 0;
       union {
-        int8_t real;
-        uint8_t base;
+        int16_t real;
+        uint16_t base;
       } u_cmd;
       u_cmd.base = 0;
-      u_cmd.base |= ((uint8_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_cmd.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_cmd.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
       this->cmd = u_cmd.real;
       offset += sizeof(this->cmd);
      return offset;
     }
 
     const char * getType(){ return "motor_msg/cmd_light"; };
-    const char * getMD5(){ return "26e2d5a54557d558b8243da339e9952c"; };
+    const char * getMD5(){ return "e12b32aac6266778a9aa3b101cf7c33e"; };
 
   };
 
